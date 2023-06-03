@@ -5,15 +5,12 @@ import PropTypes from "prop-types"
 import mapboxgl from "mapbox-gl"
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 import { DRAW_STYLES } from "@/util/mapboxgl"
-import Feature from "@/types/Feature"
 
 export default function Map({
-  draw = true,
-  features = []
+  draw = true
 }: {
   draw: Boolean,
-  children?: React.ReactNode,
-  features: Feature[]
+  children?: React.ReactNode
 }) {
   const [map, setMap] = useState<mapboxgl.Map | null>(null)
   const [drawControl, setDrawControl] = useState<MapboxDraw | null>(null)
@@ -68,43 +65,6 @@ export default function Map({
       setDrawControl(null)
     }
   }, [map, draw])
-
-  useEffect(() => {
-    if (map && features) {
-      map.on("load", () => {
-        map.addSource("features", {
-          type: "geojson",
-          data: {
-            features: features as any,
-            type: "FeatureCollection"
-          }
-        })
-
-        map.addLayer({
-          id: "maine",
-          type: "fill",
-          source: "features",
-          layout: {},
-          paint: {
-            "fill-color": "#0080ff",
-            "fill-opacity": 0.5
-          }
-        })
-
-        map.addLayer({
-          id: "outline",
-          type: "line",
-          source: "features",
-          layout: {},
-          paint: {
-            "line-color": "#000000",
-            "line-width": 2
-          }
-        })
-
-      })
-    }
-  }, [features, map])
 
   return (
     <div className="h-full w-full" id="map">
