@@ -1,0 +1,6 @@
+[build]
+  command = "NEXT_PUBLIC_APP_URL=$URL npm run build"
+
+[dev]
+  envFiles = [".env.netlify", ".env.local"]
+  targetPort = 8080
