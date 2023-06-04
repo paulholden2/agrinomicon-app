@@ -50,6 +50,8 @@ export default function useMap() {
   }
 
   return {
-    initialize
+    initialize,
+    map: state.map,
+    loaded: state.loaded
   }
 }
