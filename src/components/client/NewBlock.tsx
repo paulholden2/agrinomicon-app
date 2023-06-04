@@ -8,9 +8,7 @@ import Map from "@/components/client/Map"
 export default function NewBlock() {
   const [showData, setShowData] = useState<Boolean>(false)
 
-  const onSubmit = () => {
-    console.log("sumbit")
-  }
+  const onSubmit = () => {}
 
   return (
     <div className="absolute top-[3.5rem] bottom-0 left-0 right-0">
