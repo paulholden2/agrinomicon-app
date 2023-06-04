@@ -24,7 +24,7 @@ export default function NewBlock() {
         <div className={classNames("w-full h-full", {
           hidden: showData
         })}>
-          <Map draw={true} />
+          <Map containerId="newBlockMap" />
         </div>
         <div className={classNames({ hidden: !showData })}>
         </div>
