@@ -38,7 +38,6 @@ type AddLayerMapAction = {
 type MapAction = InitializeMapAction | RemoveMapAction | AddSourceMapAction | AddLayerMapAction | LoadedMapAction
 
 const reducer: (arg0: MapState, arg1: MapAction) => MapState = (state: MapState, action: MapAction) => {
-  console.log(state, action)
   switch (action.type) {
     case "Map.Initialize":
       return {

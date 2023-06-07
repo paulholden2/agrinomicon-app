@@ -22,8 +22,6 @@ export default async function Blocks() {
     features: data.blocks.map((block: any) => ({ ...block.feature, type: "Feature" }))
   }
 
-  console.log(data)
-
   return (
     <div>
       <div className="absolute top-[3.5rem] bottom-0 left-0 right-0">

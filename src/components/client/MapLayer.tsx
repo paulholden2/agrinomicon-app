@@ -30,13 +30,11 @@ export default function MapLayer({
       }
 
       map.once("load", () => {
-        console.log("+ layer", id)
         map.addLayer(layer)
       })
 
       return () => {
         map.once("load", () => {
-          console.log("- layer", id)
           map.removeLayer(id)
         })
       }

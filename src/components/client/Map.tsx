@@ -46,11 +46,9 @@ function Init({
         localStorage.setItem(`camera-${containerId}`, camera)
       }
 
-      console.log("+ camera")
       map
         .on("move", listener)
         .on("remove", () => {
-          console.log("- camera")
           map.off("move", listener)
         })
     }
@@ -62,33 +60,11 @@ function Init({
       map
     })
 
-    console.log("+ mapboxgl.Map")
     return () => {
       map.off("load", loadHandler)
       map.remove()
-      console.log("- mapboxgl.Map")
     }
   }, [])
-
-  // useEffect(() => {
-  //   if (!map || !loaded) return
-
-  //   const handler = () => {
-  //     const { lng, lat } = map.getCenter()
-  //     const zoom = map.getZoom()
-  //     const bearing = map.getBearing()
-  //     const pitch = map.getPitch()
-  //     onCameraChange?.({ lng, lat, zoom, bearing, pitch })
-  //   }
-
-  //   map.on("drag", handler)
-  //   console.log("+ camera localStorage handler")
-
-  //   return () => {
-  //     console.log("- camera localStorage handler")
-  //     map.off("drag", handler)
-  //   }
-  // }, [map, loaded, onCameraChange])
 
   return (
     <div className="h-full w-full" id={containerId}>

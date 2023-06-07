@@ -23,13 +23,11 @@ export default function MapSource({
       }
 
       map.once("load", () => {
-        console.log("+ source", id)
         map.addSource(id, source)
       })
 
       return () => {
         map.once("load", () => {
-          console.log("- source", id)
           map.removeSource(id)
         })
       }
