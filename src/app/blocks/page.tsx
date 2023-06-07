@@ -1,49 +1,43 @@
 import Link from "next/link"
+import Map from "@/components/client/Map"
+import MapSource from "@/components/client/MapSource"
+import MapLayer from "@/components/client/MapLayer"
 
 export default async function Blocks() {
-  const { data } = await fetch(`${process.env.API_URL}/graphql`, {
+  const { data, errors: _ } = await fetch(`${process.env.API_URL}/graphql`, {
     method: "POST",
     headers: { "Content-Type": "application/graphql" },
     body: `
     query GetBlocks {
       blocks {
         id
-        name
-        feature {
-          geometry
-        }
+        feature { id, geometry }
       }
     }
     `
   }).then((res) => res.json())
 
+  const geojson = {
+    type: "FeatureCollection",
+    features: data.blocks.map((block: any) => ({ ...block.feature, type: "Feature" }))
+  }
+
+  console.log(data)
+
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-start gap-2 sm:items-center justify-between">
-        <div className="font-display text-2xl">Block name</div>
-        <Link
-          href="/blocks/new"
-          className="flex items-center text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 rounded-full font-medium whitespace-nowrap"
-        >
-          New Block
-        </Link>
+      <div className="absolute top-[3.5rem] bottom-0 left-0 right-0">
+        <div className="p-2 flex gap-2 shallow:flex-col">
+          <div className="flex-grow" />
+          <Link href="/blocks/edit" className="bg-lime-700 px-3 py-1 rounded text-sm">New</Link>
+        </div>
+        <Map containerId="blocks">
+          <MapSource id="blocks" type="geojson" data={geojson} />
+          <MapLayer id="blocksLayer" source="blocks" type="fill" paint={{ "fill-color": "#0080ff", "fill-opacity": 0.5 }} />
+        </Map>
       </div>
-      <table cellPadding="0" className="my-8">
-        <thead>
-          <tr className="text-left font-bold text-md">
-            <th className="px-4">Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.blocks.map((block: any) => (
-            <tr key={block.name as string}>
-              <td className="first:rounded-l-md last:rounded-r-md">
-                <Link className="italic w-full h-full px-4 block font-semibold text-lime-800 hover:text-lime-600 dark:hover:text-lime-400 dark:text-lime-600" href={`/blocks/${block.id}`}>{block.name || "Untitled block"}</Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   )
 }
+
+export const revalidate = 60

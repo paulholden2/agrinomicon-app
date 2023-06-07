@@ -1,28 +1,28 @@
 "use client"
 
 import { Reducer, createContext, useEffect, useReducer } from "react"
-import mapboxgl from "mapbox-gl"
-import { Control, Layer, Source } from "mapbox-gl"
+import mapboxgl, { Map } from "mapbox-gl"
+import { IControl, Layer, Source } from "mapbox-gl"
 
 export type MapState = {
-  map: mapboxgl.Map | null,
-  loaded: Boolean
+  map: Map | null,
+  loaded: Boolean,
+  controls: IControl[]
 }
 
 export type MapDispatch = (arg1: MapAction) => void
 
 type InitializeMapAction = {
   type: "Map.Initialize",
-  map: mapboxgl.Map,
+  map: Map
+}
+
+type RemoveMapAction = {
+  type: "Map.Remove"
 }
 
 type LoadedMapAction = {
   type: "Map.Loaded",
-}
-
-type AddControlMapAction = {
-  type: "Map.AddControl",
-  control: Control
 }
 
 type AddSourceMapAction = {
@@ -35,22 +35,27 @@ type AddLayerMapAction = {
   source: Layer
 }
 
-type MapAction = InitializeMapAction | AddControlMapAction | AddSourceMapAction | AddLayerMapAction | LoadedMapAction
+type MapAction = InitializeMapAction | RemoveMapAction | AddSourceMapAction | AddLayerMapAction | LoadedMapAction
 
 const reducer: (arg0: MapState, arg1: MapAction) => MapState = (state: MapState, action: MapAction) => {
+  console.log(state, action)
   switch (action.type) {
     case "Map.Initialize":
       return {
         ...state,
-        map: action.map,
+        map: action.map
+      }
+    case "Map.Remove":
+      return {
+        ...state,
+        map: null,
         loaded: false
       }
-    case "Map.Loaded": {
+    case "Map.Loaded":
       return {
         ...state,
         loaded: true
       }
-    }
     default:
       return state
   }
@@ -58,7 +63,8 @@ const reducer: (arg0: MapState, arg1: MapAction) => MapState = (state: MapState,
 
 const initialState: MapState = {
   map: null,
-  loaded: false
+  loaded: false,
+  controls: []
 }
 
 export const MapContext = createContext<[MapState, MapDispatch]>([initialState, () => {}])
@@ -67,11 +73,6 @@ export default function MapProvider({ children }: { children: React.ReactNode })
   mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN as string || ""
 
   const [state, dispatch] = useReducer<Reducer<MapState, MapAction>>(reducer, initialState)
-
-  // Cleanup maps
-  useEffect(() => () => {
-    state.map?.on("load", () => (state.map as mapboxgl.Map).remove())
-  }, [])
 
   return (
     <MapContext.Provider value={[state, dispatch]}>
