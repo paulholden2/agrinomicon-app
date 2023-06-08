@@ -43,7 +43,7 @@ export default function MapSource({
         map.addSource(id, source)
         console.log("+ source")
       } else {
-        map.getSource(id).setData(data)
+        (map.getSource(id) as any).setData(data)
       }
     }
   }, [map, loaded, id, type, data])
