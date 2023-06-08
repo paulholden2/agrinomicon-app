@@ -21,7 +21,7 @@ export default function MapSource({
       const handler = () => {
         // map.remove() cleans up sources
         console.log("- source")
-        if (!map._removed) map.removeSource(id)
+        if (!(map as any)._removed) map.removeSource(id)
       }
 
       map.on("remove", handler)

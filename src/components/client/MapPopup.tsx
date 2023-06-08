@@ -29,7 +29,7 @@ export default function MapPopup({
         .addTo(map)
 
       return () => {
-        if (!map._removed) popup.remove()
+        if (!(map as any)._removed) popup.remove()
       }
     }
   }, [map, loaded, children])

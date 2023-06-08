@@ -46,7 +46,7 @@ export default function MapLayer({
       const cleanup = () => {
         console.log("- layer")
         // map.remove() cleans up layers
-        if (!map._removed) map.removeLayer(id)
+        if (!(map as any)._removed) map.removeLayer(id)
       }
 
       map.on("remove", cleanup)
@@ -67,7 +67,7 @@ export default function MapLayer({
       map.on("click", id, handler)
 
       return () => {
-        if (!map._removed) map.off("click", handler)
+        if (!(map as any)._removed) map.off("click", handler)
       }
     }
   }, [map, loaded, id, onClick])
