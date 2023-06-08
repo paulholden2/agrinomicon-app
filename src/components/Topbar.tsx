@@ -19,7 +19,6 @@ export default function Topbar() {
   const links = [
     { href: "/", children: <div className="py-1"><Logo /></div>, className: "hidden sm:block" },
     { href: "/", children: "Home", className: "block sm:hidden" },
-    { href: "/map", children: "Map" },
     { href: "/blocks", children: "Blocks" },
     { href: "/classifications", children: "Taxonomy" }
   ]

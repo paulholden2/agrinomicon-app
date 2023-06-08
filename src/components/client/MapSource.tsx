@@ -13,26 +13,40 @@ export default function MapSource({
   type: ("geojson"),
   data: any
 }) {
-  const { map } = useMap()
+  const { map, loaded } = useMap()
 
+  // cleanup
   useEffect(() => {
-    if (map) {
-      const source = {
-        type,
-        data
+    if (!!map) {
+      const handler = () => {
+        // map.remove() cleans up sources
+        console.log("- source")
+        if (!map._removed) map.removeSource(id)
       }
 
-      map.once("load", () => {
-        map.addSource(id, source)
-      })
+      map.on("remove", handler)
 
       return () => {
-        map.once("load", () => {
-          map.removeSource(id)
-        })
+        map.off("remove", handler)
       }
     }
-  }, [map, id, type])
+  }, [map])
+
+  useEffect(() => {
+    if (map && loaded) {
+      if (!map.getSource(id)) {
+        const source = {
+          type,
+          data
+        }
+
+        map.addSource(id, source)
+        console.log("+ source")
+      } else {
+        map.getSource(id).setData(data)
+      }
+    }
+  }, [map, loaded, id, type, data])
 
   return null
 }

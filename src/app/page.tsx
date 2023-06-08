@@ -12,19 +12,14 @@ export default function Home() {
       </div>
       <p className="font-display text-5xl font-semibold tracking-tighter my-8 px-2">Knowledgebase and tools for modern ag.</p>
       <ul className="max-w-2xl grid grid-cols-2 gap-4">
-        <li className="font-medium rounded-lg">
-          <Link className="rounded-lg block p-4 hover:bg-zinc-300/40 dark:hover:bg-zinc-700/30" href="/map">
-            Map
+        <li>
+          <Link className="rounded-lg block p-4 hover:bg-zinc-300/40 dark:hover:bg-zinc-700/30" href="/blocks">
+            Blocks
           </Link>
         </li>
         <li>
           <Link className="rounded-lg block p-4 hover:bg-zinc-300/40 dark:hover:bg-zinc-700/30" href="/classifications">
             Taxonomy
-          </Link>
-        </li>
-        <li>
-          <Link className="rounded-lg block p-4 hover:bg-zinc-300/40 dark:hover:bg-zinc-700/30" href="/blocks">
-            Blocks
           </Link>
         </li>
       </ul>

@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.mapboxgl-popup-close-button {
+  padding: 0 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mapboxgl-popup-content {
+    color: white;
+  }
+  .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+    border-top-color: rgb(23 23 23) !important;
+  }
+
+  .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: rgb(23 23 23) !important;
+  }
+
+  .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: rgb(23 23 23) !important;
+  }
+
+  .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+    border-bottom-color: rgb(23 23 23) !important;
+  }
+
+  .mapboxgl-popup-content {
+    background-color: rgb(23 23 23) !important;
+  }
+
+  .mapboxgl-popup-close-button:hover {
+    background-color: rgb(64 64 64) !important;
+  }
+
+}
