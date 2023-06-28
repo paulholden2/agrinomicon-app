@@ -16,4 +16,4 @@ export default async function Blocks() {
   )
 }
 
-export const revalidate = 60
+export const revalidate = 0
