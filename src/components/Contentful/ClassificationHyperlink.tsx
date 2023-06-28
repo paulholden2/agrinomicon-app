@@ -10,8 +10,12 @@ export default function ClassificationHyperlink({ entry }: { entry: Entry }) {
   const [match, setMatch] = useState<Classification | null>(null)
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
       method: "POST",
+      signal,
       headers: { "Accept": "application/json", "Content-Type": "application/graphql" },
       body: `
         query GetClassifications {
@@ -32,7 +36,11 @@ export default function ClassificationHyperlink({ entry }: { entry: Entry }) {
       .catch((err) => {
         console.error(err)
       })
-  }, [])
+
+    return () => {
+      controller.abort()
+    }
+  }, [entry])
 
   return (
     <Link className="font-semibold text-lime-800 hover:text-lime-600 dark:hover:text-lime-400 dark:text-lime-600" href={match?.id ? `/classifications/${match.id}` : "#"}>

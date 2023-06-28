@@ -1,6 +1,6 @@
 "use client"
 
-import { Reducer, createContext, useEffect, useReducer } from "react"
+import { Reducer, createContext, useReducer } from "react"
 import mapboxgl, { Map } from "mapbox-gl"
 import { IControl, Layer, Source } from "mapbox-gl"
 

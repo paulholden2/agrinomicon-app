@@ -11,7 +11,7 @@ export default function MapLayer({
   type,
   layout = {},
   paint = {},
-  onClick
+  onClick,
 }: {
   id: string,
   source: string,
@@ -41,7 +41,7 @@ export default function MapLayer({
         }
       }
 
-      if (!map.getLayer(id)) map.on("sourcedata", handler)
+      if (!(map as any)._removed && !map.getLayer(id)) map.on("sourcedata", handler)
 
       const cleanup = () => {
         console.log("- layer")

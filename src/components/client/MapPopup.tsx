@@ -32,7 +32,7 @@ export default function MapPopup({
         if (!(map as any)._removed) popup.remove()
       }
     }
-  }, [map, loaded, children])
+  }, [map, loaded, children, lngLat])
 
   return null
 }

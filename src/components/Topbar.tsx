@@ -25,6 +25,8 @@ export default function Topbar() {
 
   useEffect(() => {
     if (ref.current) {
+      const element = ref.current
+
       const handleFocusIn = () => {
         if (!ref.current) setShowMobileMenu(true)
       }
@@ -33,15 +35,15 @@ export default function Topbar() {
         if (ref.current && !containsRelatedTarget(event)) setShowMobileMenu(false)
       }
 
-      ref.current.addEventListener("focusin", handleFocusIn)
-      ref.current.addEventListener("focusout", handleFocusOut)
+      element.addEventListener("focusin", handleFocusIn)
+      element.addEventListener("focusout", handleFocusOut)
 
       return () => {
-        ref.current?.removeEventListener("focusin", handleFocusIn)
-        ref.current?.removeEventListener("focusout", handleFocusOut)
+        element.removeEventListener("focusin", handleFocusIn)
+        element.removeEventListener("focusout", handleFocusOut)
       }
     }
-  }, [ref.current])
+  }, [ref])
 
   return (
     <header className="sm:relative sm:bg-neutral-900 sm:dark:bg-neutral-800 text-white dark:text-white pt-[4.5rem] sm:pt-0">

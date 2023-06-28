@@ -23,7 +23,7 @@ function Init({
     const [lng, lat, zoom, bearing, pitch] = camera ? camera.split(",").map((s) => parseFloat(s)) : [-119.09, 35.26, 9, 0, 0]
 
     const map = new mapboxgl.Map({
-      style: "mapbox://styles/mapbox/satellite-streets-v12",
+      style: "mapbox://styles/mapbox/satellite-streets-v12", // mapbox://styles/bronsonholden/cljatla22003p01pzf6vt9qux
       center: [lng, lat],
       zoom,
       bearing,
@@ -60,11 +60,14 @@ function Init({
       map
     })
 
+    console.log("+ map")
+
     return () => {
       map.off("load", loadHandler)
+      console.log("- map")
       map.remove()
     }
-  }, [])
+  }, [containerId, dispatch])
 
   return (
     <div className="h-full w-full" id={containerId}>

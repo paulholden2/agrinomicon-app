@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 import useMap from "@/hooks/useMap"
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 import { Feature } from "geojson"
+import { DRAW_STYLES } from "@/util/mapboxgl"
 
 export default function MapDraw({
   features,
@@ -15,7 +16,7 @@ export default function MapDraw({
   onUpdateFeatures,
   onDeleteFeatures
 }: {
-  modes?: ("polygon" | "line_string" | "point")[],
+  modes?: string[],
   features: any[],
   onCreateFeatures?: (features: Feature[]) => void,
   onCombineFeatures?: (features: Feature[], result: Feature[]) => void,
@@ -29,25 +30,35 @@ export default function MapDraw({
   useEffect(() => {
     if (map) {
       const draw = new MapboxDraw({
+        styles: DRAW_STYLES,
         controls: {
           line_string: modes?.includes("line_string"),
           point: modes?.includes("point"),
           polygon: modes?.includes("polygon"),
           combine_features: false,
           trash: true
-        }
+        },
+        userProperties: true
       })
 
+      console.log("+ draw")
       map.addControl(draw)
 
       setControl(draw)
+
+      return () => {
+        console.log("- draw")
+        if (!(map as any)._removed) map.removeControl(draw)
+        setControl(undefined)
+      }
     }
-  }, [map])
+  }, [map, modes])
 
   useEffect(() => {
     if (map && control) {
-      const handler =  ({ features }: { features: Feature[] }) => {
+      const handler = ({ features }: { features: Feature[] }) => {
         onCreateFeatures?.(features)
+        control.delete((features as any).map(({ id }: { id: string }) => id))
       }
 
       map.on("draw.create", handler)
@@ -110,11 +121,7 @@ export default function MapDraw({
   }, [control, map, onUncombineFeatures])
 
   useEffect(() => {
-    if (map && control && features?.length) {
-      const currentIds = control.getAll().features.map(({ id }) => id)
-      const newIds = features.map(({ id }) => id)
-      const removeIds = currentIds.filter((id) => !newIds.includes(id)) as string[]
-      control.delete(removeIds)
+    if (map && control && features?.length && map.hasControl(control)) {
       control.add({
         type: "FeatureCollection",
         features: features.map((feature) => ({

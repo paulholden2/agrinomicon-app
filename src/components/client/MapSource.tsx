@@ -7,11 +7,13 @@ import useMap from "@/hooks/useMap"
 export default function MapSource({
   id,
   type,
-  data
+  data,
+  children
 }: {
   id: string,
   type: ("geojson"),
-  data: any
+  data: any,
+  children?: React.ReactNode
 }) {
   const { map, loaded } = useMap()
 
@@ -30,10 +32,10 @@ export default function MapSource({
         map.off("remove", handler)
       }
     }
-  }, [map])
+  }, [map, id])
 
   useEffect(() => {
-    if (map && loaded) {
+    if (map && loaded && !(map as any)._removed) {
       if (!map.getSource(id)) {
         const source = {
           type,
@@ -48,7 +50,7 @@ export default function MapSource({
     }
   }, [map, loaded, id, type, data])
 
-  return null
+  return <>{children}</>
 }
 
 MapSource.propTypes = {

@@ -19,19 +19,21 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "mapbox-gl": "^2.15.0",
-    "next": "13.4.4",
+    "next": "13.4.7",
     "postcss": "8.4.23",
-    "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.44.3",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
   "devDependencies": {
     "@heroicons/react": "^2.0.18",
     "@types/geojson": "^7946.0.10",
+    "@types/lodash": "^4.14.195",
     "@types/mapbox__mapbox-gl-draw": "^1.4.0",
     "@types/mapbox-gl": "^2.7.11",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "lodash": "^4.17.21"
   }
 }

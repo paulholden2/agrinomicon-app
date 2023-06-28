@@ -8,6 +8,6 @@ export default function useMap() {
 
   return {
     map: state.map,
-    loaded: state.loaded
+    loaded: !!state.map?.loaded()
   }
 }

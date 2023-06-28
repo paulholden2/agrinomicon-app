@@ -46,7 +46,7 @@ export const DRAW_STYLES = [{
     "line-join": "round"
   },
   "paint": {
-    "line-color": "#3bb2d0",
+    "line-color": ["coalesce", ["get", "user_color"], "#3bb2d0"],
     "line-width": 2
   }
 },
@@ -78,7 +78,7 @@ export const DRAW_STYLES = [{
   },
   "paint": {
     "line-color": "#3bb2d0",
-    "line-width": 4
+    "line-width": 2
   }
 },
 {
@@ -95,7 +95,7 @@ export const DRAW_STYLES = [{
   "paint": {
     "line-color": "#fbb03b",
     "line-dasharray": [0.2, 2],
-    "line-width": 4
+    "line-width": 2
   }
 },
 {
@@ -107,7 +107,7 @@ export const DRAW_STYLES = [{
     ["!=", "mode", "static"]
   ],
   "paint": {
-    "circle-radius": 7,
+    "circle-radius": 4,
     "circle-color": "#fff"
   }
 },
@@ -120,7 +120,7 @@ export const DRAW_STYLES = [{
     ["!=", "mode", "static"]
   ],
   "paint": {
-    "circle-radius": 5,
+    "circle-radius": 3,
     "circle-color": "#fbb03b"
   }
 },
@@ -134,7 +134,7 @@ export const DRAW_STYLES = [{
     ["!=", "mode", "static"]
   ],
   "paint": {
-    "circle-radius": 5,
+    "circle-radius": 3,
     "circle-opacity": 1,
     "circle-color": "#fff"
   }
@@ -162,7 +162,7 @@ export const DRAW_STYLES = [{
     ["!=", "meta", "midpoint"]
   ],
   "paint": {
-    "circle-radius": 7,
+    "circle-radius": 3,
     "circle-color": "#fff"
   }
 },
@@ -174,7 +174,7 @@ export const DRAW_STYLES = [{
     ["!=", "meta", "midpoint"],
     ["==", "active", "true"]],
   "paint": {
-    "circle-radius": 5,
+    "circle-radius": 3,
     "circle-color": "#fbb03b"
   }
 },
@@ -220,7 +220,7 @@ export const DRAW_STYLES = [{
   "type": "circle",
   "filter": ["all", ["==", "mode", "static"], ["==", "$type", "Point"]],
   "paint": {
-    "circle-radius": 5,
+    "circle-radius": 3,
     "circle-color": "#404040"
   }
 }]
