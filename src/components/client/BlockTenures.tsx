@@ -26,7 +26,7 @@ function TenureSection({
       <div className="flex gap-2">
         <div>
           <label className={LABEL_CLASS_NAME} htmlFor={`tenures.${tenureIndex}.occupied_at`}>Occupied</label>
-          <input type="date" className={INPUT_CLASS_NAME} {...register(`tenures.${tenureIndex}.occupied_at`)} />
+          <input className={INPUT_CLASS_NAME} {...register(`tenures.${tenureIndex}.occupied_at`)} />
         </div>
       </div>
       {fields.map((field, index) => (
