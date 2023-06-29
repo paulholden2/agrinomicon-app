@@ -81,3 +81,5 @@ export default async function Block({ params: { id } }: { params: { id: string }
     </div>
   )
 }
+
+export const revalidate = 10
